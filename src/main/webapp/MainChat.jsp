@@ -1,11 +1,6 @@
 <%@page import="java.sql.*"%>
 <%
 	String path=application.getRealPath("/");
-	String path1=path;
-// 	String dpname=(String)session.getAttribute("dpname");
-// 	path="..\\profiles\\"+dpname;
-// 	if(dpname==null)
-// 		path="sample_dp.jpg";
 	String username=(String)session.getAttribute("username");
 %>
 <%-- <% --%>
@@ -141,5 +136,7 @@
 <%-- <br> --%>
 <%-- </ul> --%>
 <%-- </div> --%>
+        <p> The Chat Web Application. </p>
 	</body>
+
 </html>

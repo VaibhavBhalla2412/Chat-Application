@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="f03569b1-9fe5-4189-9570-fcafa53c7278" name="chat-application" url="jdbc:hsqldb:hsql://localhost:9001/testdb" driverClass="org.hsqldb.jdbc.JDBCDriver" />
+    </data-sources>
     <data-source-infos>
       <data-source-info id="" persistence-unit-name="Default" />
     </data-source-infos>

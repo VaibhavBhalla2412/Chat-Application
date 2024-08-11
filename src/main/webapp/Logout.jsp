@@ -1,5 +1,4 @@
 <%@ page import="userDAO.UserDAO" %>
-<%@ page import="" %>
 <%
     UserDAO user = new UserDAO();
     String username = (String)session.getAttribute("username");
@@ -9,6 +8,7 @@
     }
 	else{
 	    session.invalidate();
+	    request.setAttribute("error", "user "+ username + " removed successfully.");
 	}
     request.getRequestDispatcher("Login.jsp").forward(request, response);
 %>

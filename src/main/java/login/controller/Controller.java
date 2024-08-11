@@ -1,5 +1,5 @@
 package login.controller;
-import models.User;
+//import models.User;
 import userDAO.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +25,7 @@ public class Controller extends HttpServlet {
             userDAO.removeUser(username);
             session.invalidate();
         }
-        response.sendRedirect("Login.jsp");
+        request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     @Override
@@ -36,6 +36,7 @@ public class Controller extends HttpServlet {
             request.setAttribute("error", "Username already taken");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }else{
+            session.setAttribute("username", name);
             request.getRequestDispatcher("MainChat.jsp").forward(request, response);
         }
     }

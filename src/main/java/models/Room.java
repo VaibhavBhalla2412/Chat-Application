@@ -47,6 +47,11 @@ public class Room {
     }
 
     public void setRoomKey(String roomKey) {
-        this.roomKey = roomKey;
+        if(roomKey == null){
+            this.roomKey = GLOBAL_KEY;
+        }
+        else{
+            this.roomKey = roomKey;
+        }
     }
 }

@@ -13,7 +13,7 @@ public class User implements Serializable {
 
     @Id
     private String name;
-    private HttpSession sessionId;
+    private String sessionId;
 //    private String status;
 //
 //    public static final String ONLINE="online";
@@ -26,7 +26,7 @@ public class User implements Serializable {
     public User(String name, HttpSession sessionId){
         super();
         this.name = name;
-        this.sessionId = sessionId;
+        this.sessionId = sessionId.getId();
     }
     public User(HttpServletRequest request) {
         extractFormData(request);
@@ -41,7 +41,7 @@ public class User implements Serializable {
     public String getName() {
         return name;
     }
-    public HttpSession getsessionId() {
+    public String getsessionId() {
         return sessionId;
     }
 //    public String getStatus() {
@@ -52,7 +52,7 @@ public class User implements Serializable {
         this.name = name;
     }
     public void setsessionId(HttpSession sessionId) {
-        this.sessionId = sessionId;
+        this.sessionId = (String)sessionId.getId();
     }
 //    public void setStatus(String status) {
 //        this.status = status;

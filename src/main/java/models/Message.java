@@ -11,7 +11,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int messegeId;
     private String content;
-    private String date;
+    private String timeStamp;
     private String sender;
     private int roomId;
 
@@ -32,7 +32,7 @@ public class Message {
     @Override
     public String toString() {
         return "Message [messegeId=" + messegeId + ", content=" + content
-                + ", date=" + date + ", sender=" + sender + ", roomId=" + roomId + "]";
+                + ", timeStamp=" + timeStamp + ", sender=" + sender + ", roomId=" + roomId + "]";
     }
 
 
@@ -46,8 +46,8 @@ public class Message {
     }
 
 
-    public String getDate() {
-        return date;
+    public String getTimeStamp() {
+        return timeStamp;
     }
 
 
@@ -70,8 +70,8 @@ public class Message {
     }
 
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTimeStamp(String date) {
+        this.timeStamp = timeStamp;
     }
 
 

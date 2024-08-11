@@ -9,44 +9,60 @@ public class UserDAO {
 
 
     public boolean addUser(String name, HttpSession session){
-        User user = new User();
-        user.setName(name);
-        user.setsessionId(session);
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(user);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
-
-//        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/chatdb", "root", "password")) {
-//            String checkSql = "SELECT username FROM users WHERE username = ?";
-//            PreparedStatement checkStatement = connection.prepareStatement(checkSql);
-//            checkStatement.setString(1, username);
-//            ResultSet resultSet = checkStatement.executeQuery();
-//
-//            if (resultSet.next()) {
-//                return false;
-//            }
-//            String sql = "INSERT INTO users (username, session_id) VALUES (?, ?)";
-//            PreparedStatement statement = connection.prepareStatement(sql);
-//            statement.setString(1, username);
-//            statement.setString(2, session.getId());
-//            statement.executeUpdate();
-//
-//            session.setAttribute("username", username);
-//            response.sendRedirect("chat.jsp");
-//
-//        } catch (SQLException e) {
-//            throw new ServletException("Database error", e);
-//        }
-
-
+        try {
+            User user = new User();
+            user.setName(name);
+            user.setsessionId(session);
+            entityManager.getTransaction().begin();
+            if(entityManager.find(models.User.class, name) != null){
+                return false;
+            }
+            else{
+                entityManager.persist(user);
+            }
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            if(entityManager.getTransaction().isActive()){
+                entityManager.getTransaction().rollback();
+            }
+        }
+        finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
         return true;
     }
 
     public boolean removeUser(String name){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try{
+
+            entityManager.getTransaction().begin();
+            User user = entityManager.find(models.User.class, name);
+            if(user == null){
+                return false;
+            }
+            else{
+
+                entityManager.remove(user);
+            }
+            entityManager.getTransaction().commit();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            if(entityManager.getTransaction().isActive()){
+                entityManager.getTransaction().rollback();
+            }
+        }
+        finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
 
         return true;
     }
