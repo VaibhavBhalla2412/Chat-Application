@@ -1,9 +1,8 @@
 package models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Message {
@@ -11,7 +10,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int messegeId;
     private String content;
-    private String timeStamp;
+    private LocalDateTime timeStamp;
     private String sender;
     private int roomId;
 
@@ -21,11 +20,16 @@ public class Message {
     }
 
 
-    public Message( String content, int senderId) {
+    public Message( String content, String sender, int roomId) {
         super();
         this.content = content;
         this.sender = sender;
         this.roomId = roomId;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        timeStamp = LocalDateTime.now();
     }
 
 
@@ -46,7 +50,7 @@ public class Message {
     }
 
 
-    public String getTimeStamp() {
+    public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
 
@@ -70,7 +74,7 @@ public class Message {
     }
 
 
-    public void setTimeStamp(String date) {
+    public void setTimeStamp(LocalDateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
 
